@@ -38,7 +38,7 @@ class _pracState extends State<prac> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text("Title:- \n\n\n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
+                    Text("Title:- \n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                     Text("Answer:- \n ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                     IconButton(onPressed: null, icon: Icon(Icons.delete,size:30,color:Colors.red))
                   ],
@@ -58,7 +58,7 @@ class _pracState extends State<prac> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text("Title:- \n\n\n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
+                    Text("Title:- \n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                     Text("Answer:- \n ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                     IconButton(onPressed: null, icon: Icon(Icons.delete,size:30,color:Colors.red))
                   ],
@@ -78,7 +78,7 @@ class _pracState extends State<prac> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text("Title:- \n\n\n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
+                    Text("Title:- \n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                     Text("Answer:- \n ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                     IconButton(onPressed: null, icon: Icon(Icons.delete,size:30,color:Colors.red))
                   ],
@@ -98,7 +98,7 @@ class _pracState extends State<prac> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text("Title:- \n\n\n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
+                    Text("Title:- \n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                     Text("Answer:- \n ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                     IconButton(onPressed: null, icon: Icon(Icons.delete,size:30,color:Colors.red))
                   ],
@@ -118,7 +118,7 @@ class _pracState extends State<prac> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                          Text("Title:- \n\n\n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
+                          Text("Title:- \n\n\n  ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                         Text("Answer:- \n ",style:TextStyle(fontFamily:'ZenDots',fontSize:12,)),
                         IconButton(onPressed: null, icon: Icon(Icons.delete,size:30,color:Colors.red))
                         ],
