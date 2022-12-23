@@ -1,93 +1,197 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:clubrecruitment/homepage.dart';
-import 'package:clubrecruitment/prac.dart';
 import 'dart:math';
-import 'package:clubrecruitment/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+
+
 
 
 class Practice extends StatefulWidget {
-   var value1;
-   var value2;
-
-  Practice({ this.value1,  this.value2});
 
   @override
-  State<Practice> createState() => _PracticeState(value1,value2);
+  State<Practice> createState() => _PracticeState();
 }
 
 class _PracticeState extends State<Practice> {
-  var value1;
-  var value2;
+  var value1="Touch Arrow For Question";
+  var value2="No Question on the Screen yet ";
+  var randomindex;
+  bool isBack=true;
+  double angle =0;
+  void _flip()
+  {
+    setState(() {
+      angle=(angle+pi)%(2*pi);
 
-
-  _PracticeState(this.value1, this.value2);
-
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return
       Scaffold(
 
 
-          backgroundColor: Colors.deepPurple[600],
+          backgroundColor: Colors.white12,
           appBar: AppBar(
-            title: Text("FlashCards", style: TextStyle(fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontFamily: 'ZenDots')),
+            title: Text("FlashCards", style: TextStyle(fontSize: 35.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontFamily: 'Oswald')),
 
 
             centerTitle: true,
-            backgroundColor: Colors.deepOrange[300],
+            backgroundColor: Colors.purple[600],
           ),
-          body: Column(children: [
-            Container(
-                child: Center(
-                  child: Column(
+          body:Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Colors.purple, Colors.blueAccent],
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                stops: [0.4, 0.7],
+                tileMode: TileMode.repeated,
+              ),
+            ),
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection('Carddata').snapshots(),
+              builder: (context,AsyncSnapshot snapshot){
+                if (!snapshot.hasData){
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return  Column(children: [
+                   GestureDetector(
+                     onTap: _flip,
+                     child: TweenAnimationBuilder(tween: Tween<double>(begin: 0,end:angle),
+                         duration: Duration(seconds:1),
+                         builder: (BuildContext context,double val,__){
+                       if(val>=pi/2){
+                         isBack = false;
+                       }
+                       else
+                         {
+                           isBack=true;
+                         }
+                       return Container(
+                         child: Transform(
+                           alignment: Alignment.center,
+                           transform: Matrix4.identity()
+                             ..setEntry(3, 2, 0.001)
+                             ..rotateY(val),
+                           child: Container(
+                               child: isBack
+                                   ? Container(
+                                   child: Center(
+                                     child: Column(
+                                       children: [
+
+                                         Text("Question:- ${value1} \n\n\n\n", style: TextStyle(
+                                             fontSize: 18, fontFamily: 'Oswald')),
+                                         Text("Touch Card to see answer \n\n", style: TextStyle(
+                                             fontSize: 14, fontFamily: 'Oswald',color:Colors.white))
+
+
+                                       ],
+                                     ),
+                                   ),
+                                   decoration: BoxDecoration(
+                                     borderRadius: BorderRadius.circular(15.0),
+                                     color: Colors.red[600],
+
+
+                                   ),
+                                   padding: EdgeInsets.all(50.0),
+                                   margin: EdgeInsets.all(30)
+
+
+                               )
+                                   : Transform(
+                                     alignment:Alignment.center,
+                                     transform: Matrix4.identity()
+                                         ..rotateY(pi),
+                                     child: Container(
+                                     child: Center(
+                                       child: Column(
+                                         children: [
+
+                                           Text("Answer:- ${value2} \n\n\n\n", style: TextStyle(
+                                               fontSize: 18, fontFamily: 'Oswald')),
+                                           Text("Touch Card to see question \n\n", style: TextStyle(
+                                               fontSize: 14, fontFamily: 'Oswald',color:Colors.white))
+
+
+                                         ],
+                                       ),
+                                     ),
+                                     decoration: BoxDecoration(
+                                       borderRadius: BorderRadius.circular(15.0),
+                                       color: Colors.red[600],
+
+
+                                     ),
+                                     padding: EdgeInsets.all(50.0),
+                                     margin: EdgeInsets.all(30)
+
+
+                               ),
+                                   )
+                           ),
+                         ),
+                       );
+                     }),
+                   ),
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
 
-                      Text("Question:- ${value1} ", style: TextStyle(
-                          fontSize: 12, fontFamily: 'ZenDots')),
+                      IconButton(onPressed: (){
+                        setState(() {
+                          if (snapshot.data.docs.length==0){
+                            showCupertinoDialog(context: context
+                            , builder:(BuildContext context){
+                             return CupertinoAlertDialog(
+                                title:Text("No Cards Added Yet"),
+                                content:Text("Please Add a Card"),
+                                actions:<Widget>[
+                                  TextButton(onPressed: () async {
+                                    Navigator.pop(context);
+
+
+                                  }, child: Text("OK"))
+                                ]
+
+                              );
+                                });
+
+                          }
+                          randomindex=Random().nextInt(snapshot.data.docs.length);
+                          value1=snapshot.data.docs[randomindex]['question'] ;
+                          value2=snapshot.data.docs[randomindex]['answer'] ;
+                        });
+
+                      }, icon: Icon(Icons.navigate_next_rounded),iconSize: 50,color:Colors.white,),
+
 
 
                     ],
                   ),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color: Colors.amber,
+
+                  Text("\n\n "),
+                  ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("Go Back To HomePage",style:TextStyle(fontFamily: 'Oswald'))),
 
 
-                ),
-                padding: EdgeInsets.all(50.0),
-                margin: EdgeInsets.fromLTRB(50, 130, 50, 100)
+                ]
 
 
+                );
+
+              },
             ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton(onPressed: (){
-                  openDialog();
-
-
-                },
-                    child: Text("Show Answer", style: TextStyle(
-                        fontFamily: 'ZenDots', color: Colors.black)),
-                    style: TextButton.styleFrom(
-                        backgroundColor: Colors.amber,
-                        foregroundColor: Colors.black
-
-                    )),
-                ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("Go Back To HomePage",style:TextStyle(fontFamily: 'ZenDots'))),
-
-
-
-              ],
-            )
-          ]
-
-
           )
       );
 
@@ -102,7 +206,7 @@ class _PracticeState extends State<Practice> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-             Text("The Answer is :- ${value2}\n"),
+              Text("The Answer is :- ${value2}\n"),
 
 
 
@@ -111,6 +215,7 @@ class _PracticeState extends State<Practice> {
           ))
 
       ));
+
 }
 
 

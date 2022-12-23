@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "30126508279",
+    "project_id": "coding-club-recruitment",
+    "storage_bucket": "coding-club-recruitment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30126508279:android:2d49111191306d081b6bf2",
+        "android_client_info": {
+          "package_name": "com.codingclub.clubrecruitment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30126508279-hsfs6ro9lgnh4aq0eebm4lbqodhtkjic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK96YNzTOArtYpeRO8qI5yPZNORGCaE6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30126508279-hsfs6ro9lgnh4aq0eebm4lbqodhtkjic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
